@@ -1,0 +1,5 @@
+#+TITLE: README
+
+These are my notes while reading the book [[https://www.amazon.com/Test-Driven-Acceptance-Java-Developers/dp/1932394850/ref=sr_1_3][Test Driven: TDD and
+Acceptance TDD for Java Developers]]. I'm mostly interested in the
+second half of the book on ATDD, so that's what I'll be covering.
