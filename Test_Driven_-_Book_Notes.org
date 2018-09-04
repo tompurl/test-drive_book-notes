@@ -1,0 +1,119 @@
+#+TITLE: Test Driven - Book Notes
+
+* Notes
+
+** Chapter 11: Stategies for implementing acceptance tests
+*** Overview
+    - QA has traditionally taught us that we should test the system as
+      a whole, from end to end.
+    - There is clear value in testing at levels beneath the whole.
+      - It's a question of costs vs. value.
+*** 11.1: What should acceptance tests test?
+    - Acceptance tests don't need to test /everything/!
+    - The should test the functionality that fulfill the requirements
+      specified by the user stories.
+    - To make smart decisions, you have consider three things:
+      1. *story*
+      2. *turbulence*
+      3. *technology*
+    - 11.1.1 - Focus on what's essential
+      - Example: If you know your UI works, then why are you using it
+        to test some new, complex calculation?
+	- These are two separate things to test.
+	- Don't mix domain logic with presentation
+	- You shouldn't write your acceptance test in terms of other
+          stuff you don't care about.
+    - 11.1.2 - Avoid turbulent interfaces
+      - *Turbulence* in this case means the rate at which the
+        underlying code that you're testing changes.
+      - i.e. Avoid writing a test that depends on a text box that has
+        a specific name.
+      - You don't want a small change in the UI to force you to change
+        a bunch of tests.
+	- As usual, you want to decouple things as much as possible.
+    - 11.1.3 - Cross the fence where it is lowest
+      - "Sometimes it makes sense to cross the technological fence
+        where it is lowest, and sometimes it makes sense to climb
+        higher because of a truly greener pasture on the other side."
+      - Design your app with an API so you can test functionality
+        outside of the web UI.
+*** 11.2: Implementation approaches
+    - 3 styles:
+      - end-to-end
+      - crawling under the skin
+      - exercising the internals
+    - 11.2.1 - Going end-to-end
+      - Er doy
+      - Black box testing
+      - Why test the whole system?
+	- Pros
+	  - Ideal situation
+	- Cons
+	  - Tests are brittle
+	  - Slow
+      - Trading speed for certainty
+      - "As the time between a question and its answer increases, so
+        does the cost of asking the question."
+      - Not the best bang for the buck.
+    - 11.2.2 - Crawling under the skin
+      - "skin" == UI
+      - Avoiding needless change
+	- Less UI-dependent code means less maintenance
+      - Easier implementation
+	- It's much easier to tests a web api than a web UI.
+      - Downsides to skinning the app
+	- Could miss UI changes that alienate users.
+    - 11.2.3 - Exercising the internals
+      - Testing the system *without* going through the UI or API.
+    - 11.2.4 - Stubbing out the irrelevant
+      - e.g. Running database in an in-memory system.
+    - 11.2.5 - Testing backdoors
+      - Going through a backdoor to test a system
+      - e.g. querying a database
+*** 11.3 - Technology-specific considerations
+    - 11.3.1 - Programming libraries
+      - Meh, it depends
+    - 11.3.2 - Faceless, distributed systems
+      - Go under the skin
+    - 11.3.3 - Console applications
+      - Er doy.
+    - 11.3.4 - GUI applications
+      - Just say no.
+    - 11.3.5 - Web applications
+      - Through the UI or under the skin?
+	- Often you need to use the web ui because of HTTP and JS
+          interactions that you can't access by just testing a web
+          API.
+      - Lots of stuff we already know.
+*** 11.4 - Tips for common problems
+    - Complex systems can create test suites that are similarly
+      complex.
+    - Perf is a problem too.
+    - 11.4.1 - Accelerating test execution
+      - Time includes:
+	- Test execution
+	- Setup and teardown
+	- Database copying and such
+      - Why not *do less*?
+	- Organizing tests
+	  - Certain categories of tests may require less setup and
+            teardown.
+	  - e.g. Tests that are RO can run before you copy data over.
+	- Cheating on persistence
+	  - Run database in memory mode
+	- Distributing work
+	  - Run multiple testing machines in parallel
+	- Minimizing setup with dependent tests
+	  - Perform setup tasks as infrequently as possible.
+	  - Not always possible.
+	- Rolling back transactions
+	  - This is a good strategy for moving a database back to a
+            known good state.
+	  - *Much* faster than dropping and recreating a database.
+	  - Not very easy to do.
+	- Soft booting
+	  - N/A
+    - 11.4.2 - Reducing complexity of test cases
+      - None of this really seems to reduce any complexity, but it's
+        definitely cool.
+    - 11.4.3
