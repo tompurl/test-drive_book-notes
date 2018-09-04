@@ -116,4 +116,11 @@
     - 11.4.2 - Reducing complexity of test cases
       - None of this really seems to reduce any complexity, but it's
         definitely cool.
-    - 11.4.3
+    - 11.4.3 - Managing test data
+      - Managing state is hard yo. Here's what you can do:
+	- Using a single data set
+	  - Don't maintain separate databases when possible.
+	- Generating the data set
+	  - Works well for small data sets.
+	- Version controlling your data
+	  - You should be able to diff database schemas between runs.
